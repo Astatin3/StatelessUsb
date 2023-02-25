@@ -1,5 +1,5 @@
 # StatelessUsb
-A portable password manager designed for compatibility  
+A portable stateless password manager designed for compatibility  
 Inspired by Lesspass  
   
 ---
