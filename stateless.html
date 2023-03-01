@@ -1,35 +1,258 @@
 <!DOCTYPE html>
+<?xml version="1.0" encoding="utf-8"?>
 <body>
 
-<form>
-  <input type="file" id="fileInput" accept=".json"><br>
+<div class="menu">
+  <input type="file" id="fileInput" style="display:none;" accept=".json"><br>
+  
+  <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+  <svg id="uploadbtn" onclick="getEl('fileInput').click()" width="8vh" height="8vh" viewBox="10 10 15 15" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" fill-rule="nonzero" d="M20 12l6 5.656-1.5 1.414-3.44-3.242V28h-2.12V15.828L15.5 19.07 14 17.656z"/></svg>
+  
   <select id="dropDown" style="display:none;" onchange="setInput(conf.length-1 - this.selectedIndex)"></select>
-  <br>
-  <br>
-  <input type="input" id="site" placeholder="Site"><br>
+
+  <input type="input" id="site" placeholder="Site">
   <input type="input" id="username" placeholder="Username / Email">
   <br>
-  <br>
-  <p>Length: </p><input type="input" id="length" placeholder="Length" value="16"><br>
+
   <input type="checkbox" id="incLowercase" checked="checked">
-  <label for="incLowercase"> Lowercase letters</label>
-  <br>
   <input type="checkbox" id="incUppercase" checked="checked">
-  <label for="incUppercase"> Uppercase letters</label>
-  <br>
   <input type="checkbox" id="incNumber" checked="checked">
-  <label for="incNumber"> Numbers</label>
-  <br>
   <input type="checkbox" id="incSymbol" checked="checked">
-  <label for="incSymbols"> Symbols</label>
-  <br>
-  <br>
+
+  <div class="lengthWrapper">
+    <input type="button" class="numMinus" onclick="inc(getEl('length'))" />
+    <input type="input" class="numInput" id="length" placeholder="Length" value="16"/>
+    <input type="button" class="numPlus" onclick="dec(getEl('length'))" />
+  </div>
+
+  <div class="countWrapper">
+    <input type="button" class="numMinus" onclick="inc(getEl('counter'))" />
+    <input type="input" class="numInput" id="counter" placeholder="Counter" value="1"/>
+    <input type="button" class="numPlus" onclick="dec(getEl('counter'))"/>
+  </div>
+
   <input type="password" id="password" placeholder="Master Password">
   <input type="button" id="generate" value="Generate" onclick="genPassword()">
   <input type="button" id="save" value="Save" onclick="saveConf()">
-</form>
+</div>
 
 <style>
+
+body {
+  background-color: #505050;
+  margin:0;
+}
+
+.menu {
+  background-color: #202020;
+  border: 10px;
+  width: 66vw;
+  margin-left: 17vw;
+  height: 100vh;
+  position: relative;
+  border-radius: 0;
+  color: #ffffff;
+  border-color: #202020;
+  border-width: 10px;
+}
+
+@media only screen and ((orientation: portrait) or (max-width: 600px)) {
+  .menu {
+    width: 100vw;
+    margin-left: 0;
+  }
+}
+
+#site {
+  left: 5px;
+}
+
+#username {
+  right: 5px;
+}
+
+#dropDown {
+  position: absolute;
+  right: 5px;
+  top: 0;
+  background-color: #181818;
+  color: #ffffff;
+}
+
+#site, #username {
+  height: 8vh;
+  font-size: 3vh;
+  width: calc(50% - 20px);
+  padding-left: 5px;
+  padding-right: 5px;
+  position: absolute;
+  border: 0;
+  outline: 0;
+  top: 10vh;
+}
+
+.menu input[type=input]:focus {
+  outline:none!important;
+}
+
+.menu input::placeholder { 
+  color: #ffffff; 
+}
+
+.menu input {
+  border-radius: 0;
+  color: #ffffff;
+  border-color: #181818;
+  border: 0;
+  outline: 0;
+}
+
+input[type="checkbox"], input[type="input"], input[type="password"], #generate, #save {
+  background-color: #181818;
+}
+
+#save, #generate {
+  position: absolute;
+  bottom: 5px;
+  height: 10vh;
+  font-size: 3vh;
+}
+
+#save {
+  left: 5px;
+  width: calc(50% - 10px);
+}
+
+#generate {
+  right: 5px;
+  width: calc(50% - 10px);
+}
+
+.menu input:focus {
+  outline:none!important;
+}
+
+.lengthWrapper, .countWrapper {
+  position: absolute;
+  top: calc(38vh + 18px);
+  width: calc(50% - 10px);
+  height: 10vh;
+}
+
+.numInput {
+  position: absolute;
+  left: 10vh;
+  right: 10vh;
+  height: calc(100% - 10px);
+  width: calc(100% - 20vh);
+  padding: 5px;
+  font-size: 3vh;
+}
+
+.numPlus {
+  background-color: #505050;
+  content:"test";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 10vh;
+  height: 10vh;
+  z-index: 2;
+  cursor: pointer;
+  font-size: 2px;
+  padding: 0;
+}
+
+.numMinus {
+  background-color: #505050;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 10vh;
+  height: 10vh;
+  z-index: 2;
+  cursor: pointer;
+  font-size: 3vh;
+}
+
+.lengthWrapper {
+  left: 5px;
+}
+
+.countWrapper {
+  right: 5px;
+}
+
+#uploadbtn {
+  color: #ffffff;
+  position: absolute;
+  cursor:pointer;
+  right: 5px;
+  top: 5px;
+}
+
+input[type="checkbox"] {
+  position: absolute;
+  -webkit-appearance: initial;
+  appearance: initial;
+  font-family: system-ui, sans-serif;
+  font-size: 5vh;
+  font-weight: bold;
+  line-height: 1.1;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
+  border-radius:0;
+  width: calc(50% - 10px);
+  height: 10vh;
+
+}
+
+input[type="checkbox"]:after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+#incLowercase {top: calc(18vh + 5px); left: 0px;}
+#incUppercase {top: calc(18vh + 5px); right: 0px;}
+#incNumber {top: calc(28vh + 10px); left: 0px;}
+#incSymbol {top: calc(28vh + 10px); right: 0px;}
+
+#incLowercase:after {content: " abc ";}
+#incLowercase:checked:after {content: "[abc]";}
+
+#incUppercase:after {content: " ABC ";}
+#incUppercase:checked:after {content: "[ABC]";}
+
+#incNumber:after {content: " 123 ";}
+#incNumber:checked:after {content: "[123]";}
+
+#incSymbol:after {content: " @#* ";}
+#incSymbol:checked:after {content: "[@#*]";}
+
+input[type="checkbox"]:checked {
+    background-color: #505050;
+}
+
+input[type=text]:focus {
+  border: 0;
+  background-color: #303030;
+}
+
+#password {
+  position: absolute;
+  left: 5px;
+  width: calc(100% - 20px);
+  height: 10vh;
+  bottom: calc(10vh + 10px);
+  font-size: 3vh;
+  padding-left: 5px;
+  padding-right: 5px;
+}
 
 p {
   display: inline;
@@ -38,7 +261,7 @@ p {
 </style>
 
 <script>
-let conf
+let conf = []
 
 const charLowercase = "qwertyuioppasdfghjklzxcvbnm"
 const charUppercase = "QWERTYUIOPASDFGHJKLZXCVBNM"
@@ -174,6 +397,14 @@ function saveConf() {
 
 function getEl(str){
   return document.getElementById(str)
+}
+
+function inc(el){
+  el.value = parseInt(el.value) + 1
+}
+
+function dec(el){
+  el.value = parseInt(el.value) - 1
 }
 
 </script>
